@@ -24,7 +24,11 @@ Los ajustes de la Pokédex usan `pokehub:pokedex:v1`, independiente de la clave 
 
 Web estática con dos rutas independientes: **Eternatus**, 173 paradas en `index.html`, y **Polvos Estelares**, 20 paradas en `polvos.html`. El selector permite cambiar entre ellas. Copia coordenadas con un botón, marca la visita y muestra la espera estimada hasta la siguiente parada.
 
-La ruta de Polvos conserva el orden de los siete sets de PoGoQuest proporcionados por el usuario: 14 recompensas de 1.000 y seis de 1.500, **23.000 Polvos Estelares anunciados** en total, sin bonus. Son Polvos Estelares, no experiencia. Cada parada muestra su misión. El listado no incluye fecha de generación y las recompensas no se han verificado en el juego.
+La ruta de Polvos conserva las coordenadas, misiones y recompensas de PoGoQuest proporcionadas por el usuario: 14 recompensas de 1.000 y seis de 1.500, **23.000 Polvos Estelares anunciados** en total, sin bonus. Son Polvos Estelares, no experiencia. Cada parada muestra su misión. El listado no incluye fecha de generación y las recompensas no se han verificado en el juego.
+
+Polvos se ha ordenado desde Eternatus 42 (`51.508759,-0.124775`), última marca del historial consultado el 17/11/2026. Empieza por la coordenada más cercana (`51.502109,-0.110916`). Un cálculo de camino abierto minimiza las esperas de la tabla, con distancia como desempate y primera parada fija. Las esperas se recalculan con la tabla de PGSharp usando el siguiente tramo superior: 40 min entre paradas y hasta 1 min inicial. La estimación de 60–90 min añade giros, carga y completar misiones; no es duración garantizada ni recorrido a pie.
+
+Los IDs originales siguen asociados a las mismas coordenadas; `sequence` solo cambia la numeración visible y `group` agrupa el nuevo recorrido de tres en tres. Los siguientes saltos se resuelven por posición, nunca por ID. No cambiar `route.id` ni reasignar IDs al reordenar.
 
 Cada ruta tiene una clave local y una colección de progreso propias. Cambiar, completar o reiniciar una no modifica la otra. Las copias de seguridad solo se pueden importar en la ruta correspondiente.
 

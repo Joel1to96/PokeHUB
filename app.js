@@ -83,6 +83,8 @@
     } catch (error) { showToast('No se ha importado el enlace: ' + error.message); }
   }
   const number = id => String(id).padStart(2, '0');
+  const stopNumber = stop => number(stop.sequence || stop.id);
+  const following = stop => stops[stops.indexOf(stop) + 1];
   const distance = meters => meters >= 1000 ? (meters / 1000).toLocaleString('es-ES', { maximumFractionDigits: 2 }) + ' km' : meters + ' m';
   const duration = seconds => seconds < 60 ? seconds + ' s' : seconds % 60 ? Math.floor(seconds / 60) + ' min ' + seconds % 60 + ' s' : seconds / 60 + ' min';
   const escaped = value => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
@@ -95,9 +97,9 @@
     return '<span>' + lat + ',</span><span>' + lng + '</span>';
   }
   function onward(stop) {
-    const next = stops[stop.id];
+    const next = following(stop);
     if (!next) return '<div class="cooldown"><span aria-hidden="true">⚑</span><div><strong>Fin de ruta</strong><small>Última parada</small></div></div>';
-    return '<div class="cooldown">' + clockIcon + '<div><strong>' + duration(next.waitSeconds) + ' de espera</strong><small>→ ' + number(next.id) + ' · ' + distance(next.distanceM) + '</small></div></div>';
+    return '<div class="cooldown">' + clockIcon + '<div><strong>' + duration(next.waitSeconds) + ' de espera</strong><small>→ ' + stopNumber(next) + ' · ' + distance(next.distanceM) + '</small></div></div>';
   }
   function showToast(message, undoId = null) {
     clearTimeout(toastTimer);
@@ -126,9 +128,10 @@
       $('#next-panel').innerHTML = '<div class="done-panel"><span class="done-symbol" aria-hidden="true">✓</span><div class="eyebrow">' + stops.length + ' DE ' + stops.length + '</div><h2>Ruta completada.</h2><p>Todas las coordenadas están marcadas. Puedes volver a copiarlas o deshacer una visita en la lista.</p><button class="text-button" data-action="reset">Empezar de nuevo ↗</button></div>';
       return;
     }
-    const after = stops[next.id];
-    const foot = after ? '<span class="clock-line">' + clockIcon + '<span>Después: <strong>' + duration(after.waitSeconds) + '</strong> hasta la ' + number(after.id) + '</span></span><span>' + distance(after.distanceM) + ' entre paradas</span>' : '<span>Última parada de tu ruta</span><span>Fin del recorrido</span>';
-    $('#next-panel').innerHTML = '<div class="next-top"><div class="eyebrow"><span class="status-dot"></span>SIGUIENTE PARADA</div><span class="group-label">' + groupLabel + ' ' + number(next.group) + ' / ' + groupCount + '</span></div><div class="hero-number">Parada ' + number(next.id) + ' <span aria-hidden="true">·</span> ' + kitLabel + ' original ' + next.originalKit + '</div><h2 class="hero-coords">' + coordinates(next) + '</h2>' + quest(next, true) + '<button class="hero-copy" data-action="copy" data-id="' + next.id + '" aria-label="Copiar coordenadas de la parada ' + next.id + ' y marcar visitada">' + copyIcon + 'Copiar coordenadas <span aria-hidden="true">↗</span></button><div class="next-footer">' + foot + '</div>' + (next.id === 1 ? '<p class="initial-note">Primer salto: comprueba la espera inicial en «Antes de empezar».</p>' : '');
+    const after = following(next);
+    const foot = after ? '<span class="clock-line">' + clockIcon + '<span>Después: <strong>' + duration(after.waitSeconds) + '</strong> hasta la ' + stopNumber(after) + '</span></span><span>' + distance(after.distanceM) + ' entre paradas</span>' : '<span>Última parada de tu ruta</span><span>Fin del recorrido</span>';
+    const initial = route.origin ? 'Desde ' + escaped(route.origin.label) + ': ' + distance(stops[0].distanceM) + ' · ' + duration(stops[0].waitSeconds) + ' de espera total desde tu última acción allí. Descuenta el tiempo ya transcurrido.' : 'Primer salto: comprueba la espera inicial en «Antes de empezar».';
+    $('#next-panel').innerHTML = '<div class="next-top"><div class="eyebrow"><span class="status-dot"></span>SIGUIENTE PARADA</div><span class="group-label">' + groupLabel + ' ' + number(next.group) + ' / ' + groupCount + '</span></div><div class="hero-number">Parada ' + stopNumber(next) + ' <span aria-hidden="true">·</span> ' + kitLabel + ' original ' + next.originalKit + '</div><h2 class="hero-coords">' + coordinates(next) + '</h2>' + quest(next, true) + '<button class="hero-copy" data-action="copy" data-id="' + next.id + '" aria-label="Copiar coordenadas de la parada ' + stopNumber(next) + ' y marcar visitada">' + copyIcon + 'Copiar coordenadas <span aria-hidden="true">↗</span></button><div class="next-footer">' + foot + '</div>' + (next === stops[0] ? '<p class="initial-note">' + initial + '</p>' : '');
   }
   function renderList() {
     const nextId = stops.find(stop => !visited.has(stop.id))?.id;
@@ -137,7 +140,7 @@
       if (filter === 'visited' && !visited.has(stop.id)) return false;
       if (filter === 'pending' && visited.has(stop.id)) return false;
       if (!search) return true;
-      if (/^\d+$/.test(search)) return stop.id === Number(search);
+      if (/^\d+$/.test(search)) return (stop.sequence || stop.id) === Number(search);
       return (stop.coords + ' kit ' + stop.originalKit + ' set ' + stop.originalKit + ' grupo ' + stop.group + ' ' + (stop.mission || '') + ' ' + (stop.missionCode || '')).toLowerCase().includes(search);
     });
     $('#list-count').textContent = filtered.length;
@@ -158,8 +161,8 @@
       const body = shown.map(stop => {
         const isVisited = visited.has(stop.id);
         const isNext = stop.id === nextId;
-        const meta = isVisited ? '<span>Visitada</span><button class="undo-stop" data-action="undo" data-id="' + stop.id + '" aria-label="Deshacer visita de la parada ' + stop.id + '">Deshacer</button>' : '<span>' + kitLabel + ' ' + stop.originalKit + '</span>' + (isNext ? '<span class="separator">·</span><span class="next-tag">Siguiente</span>' : '');
-        return '<article class="stop' + (isVisited ? ' visited' : '') + (isNext ? ' is-next' : '') + '" id="stop-' + stop.id + '" aria-label="Parada ' + stop.id + (isVisited ? ', visitada' : ', pendiente') + '"><span class="stop-number" aria-hidden="true">' + (isVisited ? '✓' : number(stop.id)) + '</span><div class="stop-main"><div class="stop-coords">' + coordinates(stop) + '</div><div class="stop-meta">' + meta + '</div></div>' + onward(stop) + '<button class="copy-button" data-action="copy" data-id="' + stop.id + '" aria-label="' + (isVisited ? 'Volver a copiar' : 'Copiar') + ' coordenadas de la parada ' + stop.id + '">' + copyIcon + (isVisited ? 'Recopiar' : 'Copiar') + '</button>' + quest(stop) + '</article>';
+        const meta = isVisited ? '<span>Visitada</span><button class="undo-stop" data-action="undo" data-id="' + stop.id + '" aria-label="Deshacer visita de la parada ' + stopNumber(stop) + '">Deshacer</button>' : '<span>' + kitLabel + ' original ' + stop.originalKit + '</span>' + (isNext ? '<span class="separator">·</span><span class="next-tag">Siguiente</span>' : '');
+        return '<article class="stop' + (isVisited ? ' visited' : '') + (isNext ? ' is-next' : '') + '" id="stop-' + stop.id + '" aria-label="Parada ' + stopNumber(stop) + (isVisited ? ', visitada' : ', pendiente') + '"><span class="stop-number" aria-hidden="true">' + (isVisited ? '✓' : stopNumber(stop)) + '</span><div class="stop-main"><div class="stop-coords">' + coordinates(stop) + '</div><div class="stop-meta">' + meta + '</div></div>' + onward(stop) + '<button class="copy-button" data-action="copy" data-id="' + stop.id + '" aria-label="' + (isVisited ? 'Volver a copiar' : 'Copiar') + ' coordenadas de la parada ' + stopNumber(stop) + '">' + copyIcon + (isVisited ? 'Recopiar' : 'Copiar') + '</button>' + quest(stop) + '</article>';
       }).join('');
       return '<section class="route-group" aria-label="' + groupLabel + ' ' + group + '"><div class="group-heading"><h3>' + groupLabel + ' ' + number(group) + '</h3><span>' + done + '/' + members.length + ' visitadas</span></div><div class="group-body">' + body + '</div></section>';
     }).join('');
@@ -195,7 +198,7 @@
       if (!wasVisited) { visited.add(id); history.push(id); }
       save(wasVisited ? [] : [{ id, value: true }]);
       render();
-      showToast('Parada ' + number(id) + (wasVisited ? ': coordenadas copiadas de nuevo.' : ': copiada y marcada visitada.'), wasVisited ? null : id);
+      showToast('Parada ' + stopNumber(stop) + (wasVisited ? ': coordenadas copiadas de nuevo.' : ': copiada y marcada visitada.'), wasVisited ? null : id);
       const target = fromHero ? $('.hero-copy') : $('#stop-' + id + ' .copy-button');
       if (target) target.focus({ preventScroll: true });
     } catch {
@@ -208,7 +211,7 @@
     visited.delete(id);
     history = history.filter(value => value !== id);
     save([{ id, value: false }]); render();
-    showToast('Parada ' + number(id) + ' vuelve a estar pendiente.');
+    showToast('Parada ' + stopNumber(stops.find(stop => stop.id === id)) + ' vuelve a estar pendiente.');
     $('#stop-' + id + ' .copy-button')?.focus({ preventScroll: true });
   }
   document.addEventListener('click', event => {
