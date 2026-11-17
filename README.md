@@ -26,15 +26,27 @@ Web estática para seguir una ruta de 173 paradas de Londres. Copia coordenadas 
 
 ## Uso y progreso
 
-- El progreso se guarda automáticamente con localStorage en el mismo navegador y dispositivo, incluso al cerrar la página.
-- **Guardar copia** descarga un archivo JSON. **Recuperar copia** permite llevarlo a otro dispositivo o recuperar una copia anterior; conserva también las visitas que ya estuvieran marcadas.
-- El progreso no se sincroniza con la cuenta de GitHub ni se envía a ningún servidor. Borrar los datos del navegador o usar navegación privada puede eliminarlo: guarda una copia antes.
+- **Conectar con Google** activa la sincronización: usa la misma cuenta en el PC y en el iPhone. Firestore comunica las visitas, los cambios de «Deshacer» y el reinicio mientras la web está abierta; al volver a abrirla recupera los cambios.
+- La primera conexión incorpora las marcas locales que no tengan una decisión previa en la nube. Las marcas anuladas en otro dispositivo se conservan como pendientes. Cambiar a otra cuenta carga su progreso separado.
+- Cada cambio se guarda primero en localStorage. Sin conexión queda pendiente y se reintenta al volver. Se conserva al cerrar la página. Para usar la web por primera vez y para entrar con Google hace falta conexión.
+- **Guardar copia** y **Recuperar copia** siguen disponibles como respaldo opcional. Borrar los datos del navegador antes de sincronizar elimina cambios pendientes; la navegación privada no garantiza conservarlos.
+- El proyecto Firebase `pokehub-4f4a8` es independiente, con plan Spark. No usa servicios de ChatGPT ni proyectos del negocio. Solo se envían identificadores de parada, marcas y versiones; la cuenta se identifica mediante Firebase Authentication. No se envían coordenadas personales ni datos de Pokémon GO.
 - **Deshacer** corrige una marca sin reiniciar la ruta.
 - La clave de almacenamiento y los identificadores de paradas se mantienen estables para conservar el progreso al actualizar la web.
 
 ## Publicación en GitHub Pages
 
-En Settings → Pages, selecciona **Deploy from a branch**, rama **main**, carpeta **/(root)**. No necesita instalaciones, compilación, claves API ni servicios de ChatGPT.
+En Settings → Pages, selecciona **Deploy from a branch**, rama **main**, carpeta **/(root)**. No necesita compilación ni servicios de ChatGPT. La ruta y la Pokédex siguen siendo estáticas; la sincronización usa Firebase Authentication y Cloud Firestore.
+
+### Sincronización: mantenimiento y pruebas
+
+`firebase-config.mjs` contiene la configuración web pública, no una credencial administrativa. Authentication debe tener Google habilitado y `joel1to96.github.io` autorizado. El SDK oficial 13.3.0 se carga desde gstatic. No se activa Analytics.
+
+Publicar `firestore.rules` en la base `(default)` del proyecto indicado: acceso solo al UID autenticado por Google, ruta conocida, paradas 1–173 y campos tipados. No abrir la base en modo de prueba. No hay permiso para eliminar documentos: «Deshacer» escribe una marca negativa versionada.
+
+`sync-core.mjs` fusiona cambios por parada con un reloj lógico y un identificador aleatorio de dispositivo. Las decisiones concurrentes sobre una misma parada se resuelven de forma determinista; un cambio posterior que haya recibido el anterior lo reemplaza. `firebase-transport.mjs` aplica transacciones y escucha los cambios en directo. `sync.mjs` mantiene la cola local por cuenta, reconexión y estados de la interfaz. Cerrar sesión pausa los envíos y conserva los cambios para esa cuenta.
+
+Pruebas: `node --test test-sync.mjs test-pokedex.mjs`. Cubren fusión entre dispositivos, reinicios, deshacer, reintentos, cambios simultáneos y recuperación después de cerrar. Los límites gratuitos se consultan en https://firebase.google.com/pricing; no cambiar a Blaze sin autorización.
 
 ## Archivos
 

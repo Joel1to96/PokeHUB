@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="style.css">
   <script src="route.js" defer></script>
   <script src="app.js" defer></script>
+  <script type="module" src="sync.mjs"></script>
 </head>
 <body>
   <a class="skip-link" href="#route-list">Saltar a las paradas</a>
@@ -34,8 +35,13 @@
       </aside>
     </div>
     <details class="route-info"><summary><span class="info-icon" aria-hidden="true">i</span> Antes de empezar <span class="info-preview">Cómo leer las esperas</span><span class="summary-plus" aria-hidden="true">+</span></summary><div class="info-content"><p><strong>Al copiar, la parada se marca como visitada.</strong> Es tu lista de seguimiento; la web no comprueba el giro en el juego. Puedes deshacer cualquier marca.</p><p><strong>Cooldown estimado:</strong> en cada parada verás la espera hasta la siguiente del listado. Cuenta desde tu última acción en el juego que active cooldown, no desde que copies. Si cambias el orden o haces otra acción, consulta el contador de PGSharp y respeta el tiempo mayor.</p><p><strong>Primer salto:</strong> si tu última acción fue en alguna de las tres paradas excluidas, deja pasar 7 min desde ella antes de girar la primera. Si ya pasó ese tiempo, no lo repitas.</p><p>Se han excluido las tres últimas paradas que ya recogiste: kit 58.3 y kit 59.1–59.2. El listado es del 17/11/2026; las recompensas no están verificadas individualmente. Las esperas no garantizan protección frente a sanciones por PGSharp.</p><a href="https://www.pgsharp.com/cooldown-rules/" target="_blank" rel="noopener noreferrer">Consultar la tabla de cooldown ↗</a></div></details>
+    <section class="sync-panel" aria-labelledby="sync-title" id="sync-panel">
+      <div class="sync-symbol" aria-hidden="true">⇄</div>
+      <div class="sync-copy"><div class="eyebrow">PC + IPHONE</div><h2 id="sync-title">La misma ruta, en tus dispositivos.</h2><p id="sync-detail">Conecta la misma cuenta de Google en ambos. Las paradas se actualizarán solas.</p><span class="sync-badge" id="sync-status" role="status">Guardado en este navegador</span></div>
+      <div class="sync-actions"><button class="button" id="sync-connect">Conectar con Google</button><button class="button secondary" id="sync-retry" hidden>Reintentar</button><button class="text-button" id="sync-disconnect" hidden>Cerrar sesión</button></div>
+    </section>
     <section class="backup-panel" aria-label="Copia de seguridad del progreso">
-      <div><strong>Tu progreso, contigo.</strong><p>Se guarda automáticamente aquí. Lleva una copia si cambias de navegador o de móvil.</p></div>
+      <div><strong>Una copia extra, si la necesitas.</strong><p>Puedes guardar y recuperar un archivo de respaldo en cualquier momento.</p></div>
       <div class="backup-actions"><button class="button secondary" id="export-progress">↓ Guardar copia</button><button class="button secondary" id="import-progress">↑ Recuperar copia</button><input type="file" id="progress-file" accept="application/json,.json" hidden></div>
     </section>
     <section class="migration-panel" id="migration-panel" hidden><div><strong>Tu ruta se muda a GitHub.</strong><p>Continúa en la nueva web llevando las paradas marcadas en este navegador.</p></div><button class="button" id="migrate-progress">Continuar en GitHub ↗</button></section>
@@ -49,6 +55,7 @@
     <footer><span class="footer-brand">parada.</span><p>Una ruta. A tu ritmo.<br><span>173 paradas · 3 ya recogidas excluidas · Londres</span></p><a href="https://trainersgo.com/tools/quest/" target="_blank" rel="noopener noreferrer">Listado de TrainersGO ↗</a></footer>
   </main>
   <div class="toast" id="toast" role="status" aria-live="polite" hidden><span id="toast-message"></span><button id="toast-undo" hidden>Deshacer</button><button id="toast-close" aria-label="Cerrar aviso">×</button></div>
+  <dialog id="sync-logout-dialog" aria-labelledby="sync-logout-title"><form method="dialog"><span class="dialog-icon" aria-hidden="true">⇄</span><h2 id="sync-logout-title">Pausar en este dispositivo</h2><p>Se conservarán las visitas aquí y en tu cuenta. Para volver a sincronizar, conecta de nuevo la misma cuenta de Google.</p><p id="sync-pending-warning" class="import-note"></p><div class="dialog-actions"><button class="button secondary" value="cancel">Seguir conectado</button><button class="button" value="logout">Cerrar sesión</button></div></form></dialog>
   <dialog id="reset-dialog" aria-labelledby="reset-title"><form method="dialog"><span class="dialog-icon" aria-hidden="true">↻</span><h2 id="reset-title">¿Volver al principio?</h2><p>Se quitarán las marcas de esta ruta en este navegador. Las 3 paradas excluidas seguirán fuera del recorrido.</p><div class="dialog-actions"><button class="button secondary" value="cancel">Conservar progreso</button><button class="button" id="confirm-reset" value="reset">Reiniciar ruta</button></div></form></dialog>
   <dialog id="import-dialog" aria-labelledby="import-title"><form method="dialog"><span class="dialog-icon" aria-hidden="true">↑</span><h2 id="import-title">Recuperar tu progreso</h2><p id="import-summary"></p><p class="import-note">Se conservarán también las visitas que ya tienes marcadas aquí.</p><div class="dialog-actions"><button class="button secondary" value="cancel">Cancelar</button><button class="button" value="import">Recuperar visitas</button></div></form></dialog>
 </body>

@@ -27,9 +27,10 @@
       history = Array.isArray(value.history) ? value.history.filter(id => visited.has(id)) : [];
     } catch { storageAvailable = false; }
   }
-  function save() {
+  function save(changes = []) {
     try { localStorage.setItem(key, JSON.stringify({ version: 1, visited: [...visited], history })); storageAvailable = true; }
     catch { storageAvailable = false; }
+    if (changes.length) window.PokeSync?.record(changes);
   }
   function progressPayload() {
     return { format: 'parada-progress', version: 1, routeId: route.id, exportedAt: new Date().toISOString(), visited: [...visited], history: [...history] };
@@ -111,7 +112,7 @@
     $('#done-count').textContent = done;
     $('#undo-last').disabled = !history.some(id => visited.has(id));
     $('#save-status').classList.toggle('error', !storageAvailable);
-    $('#save-status').textContent = storageAvailable ? '✓ Progreso guardado en este navegador' : 'No se puede guardar aquí. El progreso se perderá al cerrar.';
+    $('#save-status').textContent = storageAvailable ? (window.PokeSync?.summary || '✓ Progreso guardado en este navegador') : 'No se puede guardar aquí. El progreso se perderá al cerrar.';
     if (!next) {
       $('#next-panel').innerHTML = '<div class="done-panel"><span class="done-symbol" aria-hidden="true">✓</span><div class="eyebrow">173 DE 173</div><h2>Ruta completada.</h2><p>Todas las coordenadas están marcadas. Puedes volver a copiarlas o deshacer una visita en la lista.</p><button class="text-button" data-action="reset">Empezar de nuevo ↗</button></div>';
       return;
@@ -183,7 +184,7 @@
       await writeClipboard(stop.coords);
       const wasVisited = visited.has(id);
       if (!wasVisited) { visited.add(id); history.push(id); }
-      save();
+      save(wasVisited ? [] : [{ id, value: true }]);
       render();
       showToast('Parada ' + number(id) + (wasVisited ? ': coordenadas copiadas de nuevo.' : ': copiada y marcada visitada.'), wasVisited ? null : id);
       const target = fromHero ? $('.hero-copy') : $('#stop-' + id + ' .copy-button');
@@ -197,7 +198,7 @@
     if (!visited.has(id)) return;
     visited.delete(id);
     history = history.filter(value => value !== id);
-    save(); render();
+    save([{ id, value: false }]); render();
     showToast('Parada ' + number(id) + ' vuelve a estar pendiente.');
     $('#stop-' + id + ' .copy-button')?.focus({ preventScroll: true });
   }
@@ -231,9 +232,10 @@
     const confirmed = $('#import-dialog').returnValue === 'import';
     $('#import-dialog').returnValue = '';
     if (confirmed && pendingImport) {
+      const changes = pendingImport.visited.filter(id => !visited.has(id)).map(id => ({ id, value: true }));
       for (const id of pendingImport.visited) visited.add(id);
       history = [...new Set([...history, ...pendingImport.history, ...pendingImport.visited])];
-      save(); render();
+      save(changes); render();
       showToast(storageAvailable ? 'Progreso recuperado: ' + visited.size + ' paradas guardadas.' : 'Visitas recuperadas, pero este navegador no permite guardarlas. Descarga una copia.');
     }
     pendingImport = null;
@@ -248,7 +250,19 @@
     if ($('#reset-dialog').returnValue !== 'reset') return;
     $('#reset-dialog').returnValue = '';
     visited = new Set(); history = [];
-    save(); render(); showToast('Progreso reiniciado. Tu ruta está lista.');
+    save(stops.map(stop => ({ id: stop.id, value: false }))); render(); showToast('Progreso reiniciado. Tu ruta está lista.');
+  });
+  window.addEventListener('pokehub:remote', event => {
+    const next = event.detail.visited.filter(id => ids.has(id));
+    visited = new Set(next);
+    history = [...history.filter(id => visited.has(id)), ...next.filter(id => !history.includes(id))];
+    save(); render();
+  });
+  window.addEventListener('pokehub:sync-status', () => {
+    if (storageAvailable) $('#save-status').textContent = window.PokeSync.summary;
+    $('#reset-dialog p').textContent = window.PokeSync?.connected
+      ? 'Se quitarán las marcas de esta ruta en todos tus dispositivos conectados. Las 3 paradas excluidas seguirán fuera del recorrido.'
+      : 'Se quitarán las marcas de esta ruta en este navegador. Las 3 paradas excluidas seguirán fuera del recorrido.';
   });
   window.addEventListener('storage', event => { if (event.key === key || event.key === null) { readState(); render(); } });
   readState();

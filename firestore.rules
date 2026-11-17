@@ -1,0 +1,30 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{userId}/routes/{routeId}/stops/{stopId} {
+      function owner() {
+        return request.auth != null && request.auth.uid == userId
+          && request.auth.token.firebase.sign_in_provider == 'google.com'
+          && routeId == 'londres-eternatus-2026-11-17-v1';
+      }
+      function valid() {
+        let value = request.resource.data;
+        return stopId.matches('^([1-9]|[1-9][0-9]|1[0-6][0-9]|17[0-3])$')
+          && value.keys().hasAll(['value', 'clock', 'device'])
+          && value.keys().hasOnly(['value', 'clock', 'device'])
+          && value.value is bool && value.clock is int
+          && value.clock >= 0 && value.clock <= 1000000000
+          && value.device is string && value.device.matches('^[a-f0-9]{32}$');
+      }
+      allow read: if owner();
+      allow create: if owner() && valid();
+      allow update: if owner() && valid()
+        && (request.resource.data.clock > resource.data.clock
+          || (request.resource.data.clock == resource.data.clock
+            && request.resource.data.device > resource.data.device)
+          || request.resource.data == resource.data);
+      // Undo and reset use versioned false values, never delete history.
+      allow delete: if false;
+    }
+  }
+}
