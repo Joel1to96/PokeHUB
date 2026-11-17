@@ -1,0 +1,953 @@
+{
+  "schemaVersion": 1,
+  "researchedOn": "2026-11-17",
+  "scope": "Conservative released Max catalog; not a complete availability database.",
+  "sources": {
+    "officialMax": {
+      "url": "https://pokemongo.com/max-pokemon-battle?hl=es",
+      "kind": "official",
+      "checkedOn": "2026-11-17"
+    },
+    "finale2025": {
+      "url": "https://pokemongo.com/gofestmaxfinale",
+      "kind": "official",
+      "eventDate": "2025-08-23",
+      "checkedOn": "2026-11-17"
+    },
+    "eevee": {
+      "url": "https://pokemongo.com/news/eevee-max-battle-weekend-2025",
+      "kind": "official",
+      "eventDate": "2025-11-21",
+      "checkedOn": "2026-11-17"
+    },
+    "kubfu": {
+      "url": "https://pokemongo.com/news/powerful-potential",
+      "kind": "official",
+      "eventDate": "2025-03-05",
+      "checkedOn": "2026-11-17"
+    },
+    "urshifu": {
+      "url": "https://pokemongo.com/news/final-strike-2025",
+      "kind": "official",
+      "eventDate": "2025-05-21",
+      "checkedOn": "2026-11-17"
+    },
+    "twilight2026": {
+      "url": "https://pokemongo.com/seasons/twilight-trails",
+      "kind": "official",
+      "eventDate": "2026-09-01",
+      "checkedOn": "2026-11-17"
+    },
+    "lakeTrio": {
+      "url": "https://pokemongo.com/news/dynamax-uxie-mesprit-azelf-max-battle-day-2026",
+      "kind": "official",
+      "eventDate": "2026-10-24",
+      "checkedOn": "2026-11-17"
+    },
+    "wild2026": {
+      "url": "https://pokemongo.com/gowildarea/global",
+      "kind": "official",
+      "eventDate": "2026-11-14",
+      "checkedOn": "2026-11-17"
+    },
+    "intoWild2026": {
+      "url": "https://pokemongo.com/news/into-the-wild-2026",
+      "kind": "official",
+      "eventDate": "2026-11-09",
+      "checkedOn": "2026-11-17"
+    },
+    "duraludon": {
+      "url": "https://pokemongo.com/news/steel-skyline-2025",
+      "kind": "official",
+      "eventDate": "2025-09-30",
+      "checkedOn": "2026-11-17"
+    },
+    "lugia": {
+      "url": "https://pokemongo.com/news/lugia-max-battle-weekend-2025",
+      "kind": "official",
+      "eventDate": "2025-11-29",
+      "checkedOn": "2026-11-17"
+    },
+    "hooh": {
+      "url": "https://pokemongo.com/news/ho-oh-max-battle-weekend-2026",
+      "kind": "official",
+      "eventDate": "2026-01-31",
+      "checkedOn": "2026-11-17"
+    },
+    "gmaxGarbodor": {
+      "url": "https://pokemongo.com/news/gigantamax-garbodor-max-battle-day",
+      "kind": "official",
+      "eventDate": "2025-11-01",
+      "checkedOn": "2026-11-17"
+    },
+    "gmaxMeowth": {
+      "url": "https://pokemongo.com/news/gigantamax-meowth-max-battle-day-2026",
+      "kind": "official",
+      "eventDate": "2026-02-15",
+      "checkedOn": "2026-11-17"
+    },
+    "gmaxPikachu": {
+      "url": "https://pokemongo.com/news/gigantamax-pikachu-max-battle-day-2026",
+      "kind": "official",
+      "eventDate": "2026-03-28",
+      "checkedOn": "2026-11-17"
+    },
+    "gmaxGrimmsnarl": {
+      "url": "https://pokemongo.com/en/news/community-celebrations-go-wild-area-2025",
+      "kind": "official",
+      "eventDate": "2025-11-15",
+      "checkedOn": "2026-11-17"
+    },
+    "eternatusEffect": {
+      "url": "https://pokemongo.com/en/news/adventure-effect-eternatus",
+      "kind": "official",
+      "checkedOn": "2026-11-17"
+    },
+    "crownedEffects": {
+      "url": "https://pokemongo.com/news/adventure-effects-crowned-zacian-zamazenta",
+      "kind": "official",
+      "checkedOn": "2026-11-17"
+    },
+    "crownedMax": {
+      "url": "https://pokemongo.com/news/crowned-energy-resource-zacian-zamazenta",
+      "kind": "official",
+      "checkedOn": "2026-11-17"
+    },
+    "gameMaster": {
+      "url": "https://raw.githubusercontent.com/PokeMiners/game_masters/master/latest/latest.json",
+      "kind": "community-mirror-of-game-data",
+      "dataTimestamp": "2026-08-28T07:35:50.208000+00:00",
+      "notOfficialApi": true,
+      "checkedOn": "2026-11-17"
+    },
+    "maxResearch": {
+      "url": "https://www.reddit.com/r/TheSilphRoad/comments/1nmx8fb/small_update_on_max_battle_parameters_and_the_cpm/",
+      "kind": "community-original-research",
+      "author": "Flyfunner and research collaborators",
+      "testsUrl": "https://github.com/MocTalox/Max-Battle-Tests",
+      "checkedOn": "2026-11-17"
+    },
+    "spiritBasis": {
+      "url": "https://www.reddit.com/r/TheSilphRoad/comments/1gjanr7/",
+      "kind": "community-original-analysis",
+      "checkedOn": "2026-11-17"
+    },
+    "eternatusCommunity": {
+      "url": "https://www.reddit.com/r/TheSilphRoad/comments/1mtfo0l/eternatus_what_we_know_so_far/",
+      "kind": "community-research"
+    },
+    "zamazentaGuard": {
+      "url": "https://www.reddit.com/r/TheSilphRoad/comments/1ky8qev/zamazenta_with_max_guard_has_1_shield_preapplied/",
+      "kind": "community-research"
+    },
+    "maxMoveNames": {
+      "url": "https://pokemon.gameinfo.io/es/moves",
+      "kind": "community-localization"
+    }
+  },
+  "maxRules": {
+    "officialSource": "officialMax",
+    "dynamaxAttackType": "Tipo del ataque rapido seleccionado.",
+    "gigantamaxAttackType": "Ataque Gigamax propio de la especie, independiente del ataque rapido.",
+    "attackPowerByLevel": {
+      "levels": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "dynamax": [
+        250,
+        300,
+        350,
+        450
+      ],
+      "gigantamax": [
+        350,
+        400,
+        450,
+        550
+      ],
+      "source": "maxResearch",
+      "officialNumbers": false
+    },
+    "maxGuardShieldHpByLevel": [
+      20,
+      40,
+      60,
+      80
+    ],
+    "maxSpiritHealFractionByLevel": [
+      0.08,
+      0.12,
+      0.16,
+      0.2
+    ],
+    "spiritBasis": "PS maximos del Pokemon que cura, aplicado a el y sus aliados; redondeo no calculado aqui.",
+    "spiritBasisSource": "spiritBasis",
+    "supportMovesSource": "maxResearch",
+    "level4Rule": "Nivel temporal alcanzable con efecto aventura Canon Dinamax. No es mejora permanente.",
+    "level4RuleSource": "eternatusEffect",
+    "ordinaryStabMultiplier": 1.2,
+    "stabSource": "gameMaster",
+    "secondaryEffectsNote": "No se verificaron efectos secundarios exclusivos de Gmax para GO. No copiar curacion, clima ni efectos residuales de los juegos principales.",
+    "timingNote": "GM publica durationMs=2500 para VN_BM, pero no debe presentarse como DPS o velocidad efectiva del ciclo Max."
+  },
+  "dynamax": {
+    "confirmedGroups": [
+      {
+        "source": "finale2025",
+        "families": [
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            4,
+            5,
+            6
+          ],
+          [
+            7,
+            8,
+            9
+          ],
+          [
+            10,
+            11,
+            12
+          ],
+          [
+            66,
+            67,
+            68
+          ],
+          [
+            92,
+            93,
+            94
+          ],
+          [
+            98,
+            99
+          ],
+          [
+            113,
+            242
+          ],
+          [
+            138,
+            139
+          ],
+          [
+            140,
+            141
+          ],
+          [
+            144
+          ],
+          [
+            145
+          ],
+          [
+            146
+          ],
+          [
+            213
+          ],
+          [
+            243
+          ],
+          [
+            244
+          ],
+          [
+            245
+          ],
+          [
+            302
+          ],
+          [
+            320,
+            321
+          ],
+          [
+            374,
+            375,
+            376
+          ],
+          [
+            380
+          ],
+          [
+            381
+          ],
+          [
+            519,
+            520,
+            521
+          ],
+          [
+            529,
+            530
+          ],
+          [
+            554,
+            555
+          ],
+          [
+            568,
+            569
+          ],
+          [
+            615
+          ],
+          [
+            766
+          ],
+          [
+            810,
+            811,
+            812
+          ],
+          [
+            813,
+            814,
+            815
+          ],
+          [
+            816,
+            817,
+            818
+          ],
+          [
+            819,
+            820
+          ],
+          [
+            821,
+            822,
+            823
+          ],
+          [
+            831,
+            832
+          ],
+          [
+            849
+          ],
+          [
+            856,
+            857,
+            858
+          ],
+          [
+            870
+          ]
+        ]
+      },
+      {
+        "source": "eevee",
+        "families": [
+          [
+            133,
+            134,
+            135,
+            136,
+            196,
+            197,
+            470,
+            471,
+            700
+          ]
+        ]
+      },
+      {
+        "source": "kubfu",
+        "families": [
+          [
+            891
+          ]
+        ],
+        "note": "Kubfu Dinamax confirmado; Urshifu se confirma por anuncio separado."
+      },
+      {
+        "source": "urshifu",
+        "families": [
+          [
+            892
+          ]
+        ],
+        "forms": [
+          "URSHIFU_SINGLE_STRIKE",
+          "URSHIFU_RAPID_STRIKE"
+        ]
+      },
+      {
+        "source": "twilight2026",
+        "families": [
+          [
+            111,
+            112,
+            464
+          ],
+          [
+            215,
+            461
+          ],
+          [
+            850,
+            851
+          ]
+        ]
+      },
+      {
+        "source": "lakeTrio",
+        "families": [
+          [
+            480
+          ],
+          [
+            481
+          ],
+          [
+            482
+          ]
+        ]
+      },
+      {
+        "source": "wild2026",
+        "families": [
+          [
+            483
+          ],
+          [
+            484
+          ]
+        ]
+      },
+      {
+        "source": "intoWild2026",
+        "families": [
+          [
+            895
+          ],
+          [
+            808,
+            809
+          ]
+        ]
+      },
+      {
+        "source": "duraludon",
+        "families": [
+          [
+            884
+          ]
+        ]
+      },
+      {
+        "source": "lugia",
+        "families": [
+          [
+            249
+          ]
+        ]
+      },
+      {
+        "source": "hooh",
+        "families": [
+          [
+            250
+          ]
+        ]
+      }
+    ],
+    "confirmedDexIds": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      66,
+      67,
+      68,
+      92,
+      93,
+      94,
+      98,
+      99,
+      111,
+      112,
+      113,
+      133,
+      134,
+      135,
+      136,
+      138,
+      139,
+      140,
+      141,
+      144,
+      145,
+      146,
+      196,
+      197,
+      213,
+      215,
+      242,
+      243,
+      244,
+      245,
+      249,
+      250,
+      302,
+      320,
+      321,
+      374,
+      375,
+      376,
+      380,
+      381,
+      461,
+      464,
+      470,
+      471,
+      480,
+      481,
+      482,
+      483,
+      484,
+      519,
+      520,
+      521,
+      529,
+      530,
+      554,
+      555,
+      568,
+      569,
+      615,
+      700,
+      766,
+      808,
+      809,
+      810,
+      811,
+      812,
+      813,
+      814,
+      815,
+      816,
+      817,
+      818,
+      819,
+      820,
+      821,
+      822,
+      823,
+      831,
+      832,
+      849,
+      850,
+      851,
+      856,
+      857,
+      858,
+      870,
+      884,
+      891,
+      892,
+      895
+    ],
+    "completeness": "conservative-partial",
+    "unlistedLabel": "Dinamax no confirmado en este catalogo",
+    "formPolicy": "Solo formas ordinarias de cada familia: no extender por numero de Pokedex a regionales, Mega, Oscuros, Origen, Zen, etc. Kanto para aves, Johto para Sneasel, Unova estandar para Darumaka/Darmanitan. Toxtricity ambas formas y Urshifu ambos estilos se admiten expresamente.",
+    "evolutionEvidence": "La fuente de evento confirma el primer miembro; miembros posteriores listados son evoluciones jugables de ese Pokemon Dinamax. No incluir preevoluciones por inferencia inversa."
+  },
+  "gigantamax": [
+    {
+      "dex": 3,
+      "moveId": "VN_BM_045",
+      "type": "GRASS",
+      "vfxName": "gmax_vinelash",
+      "source": "finale2025",
+      "moveSource": "gameMaster",
+      "forms": [
+        "ordinary"
+      ],
+      "secondaryEffect": null,
+      "secondaryEffectStatus": "No se ha confirmado un efecto secundario propio para GO; no importar efectos de Espada/Escudo."
+    },
+    {
+      "dex": 6,
+      "moveId": "VN_BM_019",
+      "type": "FIRE",
+      "vfxName": "gmax_wildfire",
+      "source": "finale2025",
+      "moveSource": "gameMaster",
+      "forms": [
+        "ordinary"
+      ],
+      "secondaryEffect": null,
+      "secondaryEffectStatus": "No se ha confirmado un efecto secundario propio para GO; no importar efectos de Espada/Escudo."
+    },
+    {
+      "dex": 9,
+      "moveId": "VN_BM_046",
+      "type": "WATER",
+      "vfxName": "gmax_cannonade",
+      "source": "finale2025",
+      "moveSource": "gameMaster",
+      "forms": [
+        "ordinary"
+      ],
+      "secondaryEffect": null,
+      "secondaryEffectStatus": "No se ha confirmado un efecto secundario propio para GO; no importar efectos de Espada/Escudo."
+    },
+    {
+      "dex": 12,
+      "moveId": "VN_BM_020",
+      "type": "BUG",
+      "vfxName": "gmax_befuddle",
+      "source": "finale2025",
+      "moveSource": "gameMaster",
+      "forms": [
+        "ordinary"
+      ],
+      "secondaryEffect": null,
+      "secondaryEffectStatus": "No se ha confirmado un efecto secundario propio para GO; no importar efectos de Espada/Escudo."
+    },
+    {
+      "dex": 25,
+      "moveId": "VN_BM_021",
+      "type": "ELECTRIC",
+      "vfxName": "gmax_voltcrash",
+      "source": "gmaxPikachu",
+      "moveSource": "gameMaster",
+      "forms": [
+        "ordinary"
+      ],
+      "secondaryEffect": null,
+      "secondaryEffectStatus": "No se ha confirmado un efecto secundario propio para GO; no importar efectos de Espada/Escudo."
+    },
+    {
+      "dex": 52,
+      "moveId": "VN_BM_022",
+      "type": "NORMAL",
+      "vfxName": "gmax_goldrush",
+      "source": "gmaxMeowth",
+      "moveSource": "gameMaster",
+      "forms": [
+        "ordinary"
+      ],
+      "secondaryEffect": null,
+      "secondaryEffectStatus": "No se ha confirmado un efecto secundario propio para GO; no importar efectos de Espada/Escudo."
+    },
+    {
+      "dex": 68,
+      "moveId": "VN_BM_023",
+      "type": "FIGHTING",
+      "vfxName": "gmax_chistrike",
+      "source": "finale2025",
+      "moveSource": "gameMaster",
+      "forms": [
+        "ordinary"
+      ],
+      "secondaryEffect": null,
+      "secondaryEffectStatus": "No se ha confirmado un efecto secundario propio para GO; no importar efectos de Espada/Escudo."
+    },
+    {
+      "dex": 94,
+      "moveId": "VN_BM_024",
+      "type": "GHOST",
+      "vfxName": "gmax_terror",
+      "source": "finale2025",
+      "moveSource": "gameMaster",
+      "forms": [
+        "ordinary"
+      ],
+      "secondaryEffect": null,
+      "secondaryEffectStatus": "No se ha confirmado un efecto secundario propio para GO; no importar efectos de Espada/Escudo."
+    },
+    {
+      "dex": 99,
+      "moveId": "VN_BM_025",
+      "type": "WATER",
+      "vfxName": "gmax_foamburst",
+      "source": "finale2025",
+      "moveSource": "gameMaster",
+      "forms": [
+        "ordinary"
+      ],
+      "secondaryEffect": null,
+      "secondaryEffectStatus": "No se ha confirmado un efecto secundario propio para GO; no importar efectos de Espada/Escudo."
+    },
+    {
+      "dex": 131,
+      "moveId": "VN_BM_026",
+      "type": "ICE",
+      "vfxName": "gmax_resonance",
+      "source": "finale2025",
+      "moveSource": "gameMaster",
+      "forms": [
+        "ordinary"
+      ],
+      "secondaryEffect": null,
+      "secondaryEffectStatus": "No se ha confirmado un efecto secundario propio para GO; no importar efectos de Espada/Escudo."
+    },
+    {
+      "dex": 143,
+      "moveId": "VN_BM_028",
+      "type": "NORMAL",
+      "vfxName": "gmax_replenish",
+      "source": "finale2025",
+      "moveSource": "gameMaster",
+      "forms": [
+        "ordinary"
+      ],
+      "secondaryEffect": null,
+      "secondaryEffectStatus": "No se ha confirmado un efecto secundario propio para GO; no importar efectos de Espada/Escudo."
+    },
+    {
+      "dex": 569,
+      "moveId": "VN_BM_029",
+      "type": "POISON",
+      "vfxName": "gmax_malodor",
+      "source": "gmaxGarbodor",
+      "moveSource": "gameMaster",
+      "forms": [
+        "ordinary"
+      ],
+      "secondaryEffect": null,
+      "secondaryEffectStatus": "No se ha confirmado un efecto secundario propio para GO; no importar efectos de Espada/Escudo."
+    },
+    {
+      "dex": 812,
+      "moveId": "VN_BM_047",
+      "type": "GRASS",
+      "vfxName": "gmax_drumsolo",
+      "source": "finale2025",
+      "moveSource": "gameMaster",
+      "forms": [
+        "ordinary"
+      ],
+      "secondaryEffect": null,
+      "secondaryEffectStatus": "No se ha confirmado un efecto secundario propio para GO; no importar efectos de Espada/Escudo."
+    },
+    {
+      "dex": 815,
+      "moveId": "VN_BM_048",
+      "type": "FIRE",
+      "vfxName": "gmax_fireball",
+      "source": "finale2025",
+      "moveSource": "gameMaster",
+      "forms": [
+        "ordinary"
+      ],
+      "secondaryEffect": null,
+      "secondaryEffectStatus": "No se ha confirmado un efecto secundario propio para GO; no importar efectos de Espada/Escudo."
+    },
+    {
+      "dex": 818,
+      "moveId": "VN_BM_049",
+      "type": "WATER",
+      "vfxName": "gmax_hydrosnipe",
+      "source": "finale2025",
+      "moveSource": "gameMaster",
+      "forms": [
+        "ordinary"
+      ],
+      "secondaryEffect": null,
+      "secondaryEffectStatus": "No se ha confirmado un efecto secundario propio para GO; no importar efectos de Espada/Escudo."
+    },
+    {
+      "dex": 849,
+      "moveId": "VN_BM_038",
+      "type": "ELECTRIC",
+      "vfxName": "gmax_stun_shock",
+      "source": "finale2025",
+      "moveSource": "gameMaster",
+      "forms": [
+        "TOXTRICITY_AMPED",
+        "TOXTRICITY_LOW_KEY"
+      ],
+      "secondaryEffect": null,
+      "secondaryEffectStatus": "No se ha confirmado un efecto secundario propio para GO; no importar efectos de Espada/Escudo."
+    },
+    {
+      "dex": 861,
+      "moveId": "VN_BM_041",
+      "type": "DARK",
+      "vfxName": "gmax_snooze",
+      "source": "gmaxGrimmsnarl",
+      "moveSource": "gameMaster",
+      "forms": [
+        "ordinary"
+      ],
+      "secondaryEffect": null,
+      "secondaryEffectStatus": "No se ha confirmado un efecto secundario propio para GO; no importar efectos de Espada/Escudo."
+    },
+    {
+      "dex": 884,
+      "moveId": "VN_BM_044",
+      "type": "DRAGON",
+      "vfxName": "gmax_depletion",
+      "source": "wild2026",
+      "moveSource": "gameMaster",
+      "forms": [
+        "ordinary"
+      ],
+      "secondaryEffect": null,
+      "secondaryEffectStatus": "No se ha confirmado un efecto secundario propio para GO; no importar efectos de Espada/Escudo."
+    }
+  ],
+  "adventureEffects": [
+    {
+      "dex": 890,
+      "templateId": "NON_COMBAT_V0482_MOVE_DYNAMAX_CANNON",
+      "officialSource": "eternatusEffect",
+      "numericSource": "gameMaster",
+      "settings": {
+        "uniqueId": 482,
+        "cost": {
+          "candyCost": 30,
+          "stardustCost": 5000
+        },
+        "bonusEffect": {
+          "maxMoveBonus": {
+            "excludedPokedexIds": [
+              "ZACIAN",
+              "ZAMAZENTA"
+            ],
+            "numAllMaxMoveLevelIncrease": 1
+          }
+        },
+        "durationMs": "600000",
+        "bonusType": 9,
+        "enableMultiUse": true,
+        "extraDurationMs": "4000",
+        "enableNonCombatMove": true
+      }
+    },
+    {
+      "dex": 888,
+      "templateId": "NON_COMBAT_V0469_MOVE_BEHEMOTH_BLADE",
+      "officialSource": "crownedEffects",
+      "numericSource": "gameMaster",
+      "settings": {
+        "uniqueId": "BEHEMOTH_BLADE",
+        "cost": {
+          "candyCost": 5,
+          "stardustCost": 5000
+        },
+        "bonusEffect": {
+          "attackDefenseBonus": {
+            "attributes": [
+              {
+                "combatTypes": [
+                  "COMBAT_TYPE_RAID"
+                ],
+                "attackMultiplier": 1.1
+              },
+              {
+                "combatTypes": [
+                  "COMBAT_TYPE_DMAX",
+                  "COMBAT_TYPE_GMAX"
+                ],
+                "attackMultiplier": 1.05
+              }
+            ]
+          }
+        },
+        "durationMs": "360000",
+        "bonusType": 7,
+        "enableMultiUse": true,
+        "extraDurationMs": "4000",
+        "enableNonCombatMove": true
+      }
+    },
+    {
+      "dex": 889,
+      "templateId": "NON_COMBAT_V0470_MOVE_BEHEMOTH_BASH",
+      "officialSource": "crownedEffects",
+      "numericSource": "gameMaster",
+      "settings": {
+        "uniqueId": "BEHEMOTH_BASH",
+        "cost": {
+          "candyCost": 5,
+          "stardustCost": 5000
+        },
+        "bonusEffect": {
+          "attackDefenseBonus": {
+            "attributes": [
+              {
+                "combatTypes": [
+                  "COMBAT_TYPE_RAID"
+                ],
+                "defenseMultiplier": 1.1
+              },
+              {
+                "combatTypes": [
+                  "COMBAT_TYPE_DMAX",
+                  "COMBAT_TYPE_GMAX"
+                ],
+                "defenseMultiplier": 1.05
+              }
+            ]
+          }
+        },
+        "durationMs": "360000",
+        "bonusType": 8,
+        "enableMultiUse": true,
+        "extraDurationMs": "4000",
+        "enableNonCombatMove": true
+      }
+    }
+  ],
+  "specialMaxParticipants": [
+    {
+      "dex": 888,
+      "form": "ZACIAN_CROWNED_SWORD",
+      "source": "crownedMax",
+      "dynamax": false,
+      "gigantamax": false,
+      "notes": "Espada Suprema puede mejorarse para Max; Guard/Spirit disponibles."
+    },
+    {
+      "dex": 889,
+      "form": "ZAMAZENTA_CROWNED_SHIELD",
+      "source": "crownedMax",
+      "dynamax": false,
+      "gigantamax": false,
+      "notes": "Escudo Supremo conserva la potencia por escudo ordinaria. Con Barrera desbloqueada entra con un escudo y puede acumular cuatro; observacion comunitaria."
+    },
+    {
+      "dex": 890,
+      "form": "ETERNATUS_NORMAL",
+      "source": "eternatusCommunity",
+      "dynamax": false,
+      "gigantamax": false,
+      "notes": "Permanece Eternatus normal durante fase Max. Canon Dinamax Max usa potencia 350/400/450/550; no usar estadisticas del jefe Eternamax."
+    }
+  ],
+  "implementationWarnings": [
+    "Las cifras de potencia y escudo/curacion son investigacion comunitaria, no numeros publicados oficialmente.",
+    "El GM es un espejo comunitario fechado 2026-08-28, consultado 2026-11-17. No presentar como API oficial ni datos actualizados hoy.",
+    "breadTierGroup y allowedSourdoughPokemon no confirman disponibilidad publicada.",
+    "La potencia de Max no figura en moveSettings VN_BM; se necesita fuente comunitaria separada.",
+    "No mezclar potencia de Canon Dinamax cargado PVE/PVP con su variante Max.",
+    "El efecto Canon Dinamax excluye Zacian y Zamazenta en este GM.",
+    "Los efectos aventura Espada/Embate tienen multiplicadores 1.1 en incursiones y 1.05 en Max en el GM; bonus defensa no equivale directamente a reduccion porcentual de dano.",
+    "Bonus de evento temporales no se deben codificar como base permanente.",
+    "Eternatus jugador conserva imagen y estadisticas normales. Nunca mostrar estadisticas de jefe Eternamax para el jugador."
+  ]
+}

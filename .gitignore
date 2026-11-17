@@ -2,3 +2,5 @@ parada-londres-progreso-*.json
 *.zip
 .DS_Store
 Thumbs.db
+.pokedex-cache/
+output/
