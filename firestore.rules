@@ -1,20 +1,29 @@
 rules_version = '2';
+// users/{Google Auth UID}/routes/{known route ID}/stops/{1-based stop ID}
+// Required fields: value (bool), clock (int, 0..1e9), device (32 hex chars).
+// Ownership is immutable in the path. Undo/reset retain versioned tombstones.
 service cloud.firestore {
   match /databases/{database}/documents {
     match /users/{userId}/routes/{routeId}/stops/{stopId} {
       function owner() {
         return request.auth != null && request.auth.uid == userId
           && request.auth.token.firebase.sign_in_provider == 'google.com'
-          && routeId == 'londres-eternatus-2026-11-17-v1';
+          && routeId in ['londres-eternatus-2026-11-17-v1', 'londres-polvos-2026-11-17-v1'];
+      }
+      function validStop() {
+        return (routeId == 'londres-eternatus-2026-11-17-v1'
+            && stopId.matches('^([1-9]|[1-9][0-9]|1[0-6][0-9]|17[0-3])$'))
+          || (routeId == 'londres-polvos-2026-11-17-v1'
+            && stopId.matches('^([1-9]|1[0-9]|20)$'));
       }
       function valid() {
         let value = request.resource.data;
-        return stopId.matches('^([1-9]|[1-9][0-9]|1[0-6][0-9]|17[0-3])$')
+        return validStop()
           && value.keys().hasAll(['value', 'clock', 'device'])
           && value.keys().hasOnly(['value', 'clock', 'device'])
           && value.value is bool && value.clock is int
           && value.clock >= 0 && value.clock <= 1000000000
-          && value.device is string && value.device.matches('^[a-f0-9]{32}$');
+          && value.device is string && value.device.size() == 32 && value.device.matches('^[a-f0-9]{32}$');
       }
       allow read: if owner();
       allow create: if owner() && valid();

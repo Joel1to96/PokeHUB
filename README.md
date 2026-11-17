@@ -20,9 +20,13 @@ Pruebas de cálculo: `node --test test-pokedex.mjs`. Los datos de PvPoke están 
 
 Los ajustes de la Pokédex usan `pokehub:pokedex:v1`, independiente de la clave existente de progreso de la ruta. Actualizar este módulo no reinicia las paradas.
 
-## Ruta de Londres
+## Rutas de Londres
 
-Web estática para seguir una ruta de 173 paradas de Londres. Copia coordenadas con un botón, marca la visita y muestra la espera estimada hasta la siguiente parada.
+Web estática con dos rutas independientes: **Eternatus**, 173 paradas en `index.html`, y **Polvos Estelares**, 20 paradas en `polvos.html`. El selector permite cambiar entre ellas. Copia coordenadas con un botón, marca la visita y muestra la espera estimada hasta la siguiente parada.
+
+La ruta de Polvos conserva el orden de los siete sets de PoGoQuest proporcionados por el usuario: 14 recompensas de 1.000 y seis de 1.500, **23.000 Polvos Estelares anunciados** en total, sin bonus. Son Polvos Estelares, no experiencia. Cada parada muestra su misión. El listado no incluye fecha de generación y las recompensas no se han verificado en el juego.
+
+Cada ruta tiene una clave local y una colección de progreso propias. Cambiar, completar o reiniciar una no modifica la otra. Las copias de seguridad solo se pueden importar en la ruta correspondiente.
 
 ## Uso y progreso
 
@@ -42,18 +46,20 @@ En Settings → Pages, selecciona **Deploy from a branch**, rama **main**, carpe
 
 `firebase-config.mjs` contiene la configuración web pública, no una credencial administrativa. Authentication debe tener Google habilitado y `joel1to96.github.io` autorizado. El SDK oficial 13.3.0 se carga desde gstatic. No se activa Analytics.
 
-Publicar `firestore.rules` en la base `(default)` del proyecto indicado: acceso solo al UID autenticado por Google, ruta conocida, paradas 1–173 y campos tipados. No abrir la base en modo de prueba. No hay permiso para eliminar documentos: «Deshacer» escribe una marca negativa versionada.
+Publicar `firestore.rules` en la base `(default)` del proyecto indicado: acceso solo al UID autenticado por Google, rutas conocidas, paradas 1–173 para Eternatus y 1–20 para Polvos, y campos tipados. No abrir la base en modo de prueba. No hay permiso para eliminar documentos: «Deshacer» escribe una marca negativa versionada.
 
 `sync-core.mjs` fusiona cambios por parada con un reloj lógico y un identificador aleatorio de dispositivo. Las decisiones concurrentes sobre una misma parada se resuelven de forma determinista; un cambio posterior que haya recibido el anterior lo reemplaza. `firebase-transport.mjs` aplica transacciones y escucha los cambios en directo. `sync.mjs` mantiene la cola local por cuenta, reconexión y estados de la interfaz. Cerrar sesión pausa los envíos y conserva los cambios para esa cuenta.
 
-Pruebas: `node --test test-sync.mjs test-pokedex.mjs`. Cubren fusión entre dispositivos, reinicios, deshacer, reintentos, cambios simultáneos y recuperación después de cerrar. Los límites gratuitos se consultan en https://firebase.google.com/pricing; no cambiar a Blaze sin autorización.
+Pruebas: `node --test test-routes.mjs test-sync.mjs test-pokedex.mjs`. Cubren coordenadas, esperas y recompensas de la nueva ruta, conservación de la anterior, fusión entre dispositivos, reinicios, deshacer, reintentos, cambios simultáneos y recuperación después de cerrar. Los límites gratuitos se consultan en https://firebase.google.com/pricing; no cambiar a Blaze sin autorización.
 
 ## Archivos
 
 - `index.html`: estructura de la interfaz.
+- `polvos.html`: ruta independiente de Polvos Estelares.
 - `style.css`: diseño adaptable a móviles.
 - `app.js`: copiar, marcar, guardar y recuperar progreso.
 - `route.js`: coordenadas y estimaciones de esta ruta.
+- `route-polvos.js`: 20 coordenadas, misiones, recompensas y esperas de PoGoQuest.
 - `.nojekyll`: sirve los archivos directamente.
 
 Para comprobarla en local: `python -m http.server 8770` y abrir `http://127.0.0.1:8770/`.

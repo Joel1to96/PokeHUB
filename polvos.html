@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#172a22">
+  <meta name="description" content="Ruta independiente de 20 misiones de Polvos Estelares en Londres, con coordenadas, esperas del listado y progreso sincronizado.">
+  <title>Polvos Estelares · PokeHUB</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23172a22'/%3E%3Cpath d='M18 42V22h28M34 10l12 12-12 12' fill='none' stroke='%23d0f18c' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css?v=routes-2">
+  <script src="route-polvos.js" defer></script>
+  <script src="app.js?v=routes-2" defer></script>
+  <script type="module" src="sync.mjs?v=routes-2"></script>
+</head>
+<body class="stardust-route">
+  <a class="skip-link" href="#route-list">Saltar a las paradas</a>
+  <header class="site-header">
+    <a href="#" class="brand" aria-label="Parada, inicio"><span class="brand-icon" aria-hidden="true">↗</span>parada<span class="brand-dot">.</span></a>
+    <nav class="app-nav" aria-label="Módulos de PokeHUB"><a href="index.html" aria-current="page">Mis rutas</a><a href="pokedex.html">Pokédex <span aria-hidden="true">↗</span></a></nav>
+    <span class="location"><span aria-hidden="true">◎</span> Londres, UK</span>
+  </header>
+  <main class="page">
+    <nav class="route-switcher" aria-label="Elegir ruta"><a href="index.html"><span>Caramelos de Eternatus</span><small>173 paradas</small></a><a href="polvos.html" aria-current="page"><span>Polvos Estelares</span><small>20 paradas</small></a></nav>
+    <div class="page-heading"><div><div class="eyebrow">INVESTIGACIONES DE CAMPO</div><h1>Ruta de Polvos Estelares.</h1><p>20 misiones en Londres. Tu progreso, por separado.</p></div><span class="date-tag">POGOQUEST · 20 PARADAS</span></div>
+    <div class="overview">
+      <section class="next-panel" aria-label="Siguiente parada" id="next-panel"></section>
+      <aside class="progress-panel" aria-label="Tu progreso">
+        <div class="eyebrow">TU PROGRESO</div>
+        <div class="progress-value"><span id="visited-count">0</span><span class="progress-total">/ 20</span></div>
+        <p class="progress-caption">paradas visitadas en esta ruta</p>
+        <div class="progress-track" role="progressbar" aria-label="Paradas visitadas" aria-valuemin="0" aria-valuemax="20" aria-valuenow="0"><div id="progress-fill"></div></div>
+        <div class="progress-detail"><span id="remaining-count">20 pendientes</span><span id="percent">0%</span></div>
+        <div class="reward"><span class="reward-symbol" aria-hidden="true">✧</span><div><strong>23.000 Polvos Estelares</strong><span>Total anunciado, sin bonificaciones</span></div></div>
+        <p class="mission">14 × 1000 + 6 × 1500</p>
+        <div class="save-status" id="save-status"><span aria-hidden="true">✓</span> Progreso guardado en este navegador</div>
+      </aside>
+    </div>
+    <details class="route-info"><summary><span class="info-icon" aria-hidden="true">i</span> Antes de empezar <span class="info-preview">Misiones y esperas del listado</span><span class="summary-plus" aria-hidden="true">+</span></summary><div class="info-content"><p><strong>Esta ruta anuncia Polvos Estelares, no PX.</strong> Son 20 misiones: 14 de 1000 y 6 de 1500, para un total de 23.000 antes de posibles bonificaciones. Copiar no confirma que hayas completado la misión ni cobrado la recompensa.</p><p><strong>Orden y esperas originales de PoGoQuest.</strong> Cada espera corresponde al salto desde esa parada hasta la siguiente del listado. Cuenta desde tu última acción en el juego que active cooldown, no desde que copies. Si omites paradas, cambias el orden o vienes de otra ruta, comprueba la espera para ese salto en PGSharp.</p><p><strong>Primer salto:</strong> depende de dónde y cuándo hiciste tu última acción en el juego. El minuto mostrado en la primera parada corresponde al tramo 01 → 02.</p><p>Listado aportado el 17/11/2026, sin fecha original indicada. Las misiones y recompensas no se han verificado individualmente y pueden cambiar. Las esperas son estimaciones del listado y no garantizan evitar sanciones por PGSharp.</p><p><strong>Progreso independiente:</strong> copiar, deshacer o reiniciar aquí solo afecta a Polvos Estelares. Usa la misma cuenta de Google para seguir esta ruta desde otro dispositivo.</p><a href="https://pogoquest.com" target="_blank" rel="noopener noreferrer">Fuente del listado: PoGoQuest ↗</a></div></details>
+    <section class="sync-panel" aria-labelledby="sync-title" id="sync-panel">
+      <div class="sync-symbol" aria-hidden="true">⇄</div>
+      <div class="sync-copy"><div class="eyebrow">PC + IPHONE</div><h2 id="sync-title">La misma ruta, en tus dispositivos.</h2><p id="sync-detail">Conecta la misma cuenta de Google en ambos. Las paradas se actualizarán solas.</p><span class="sync-badge" id="sync-status" role="status">Guardado en este navegador</span></div>
+      <div class="sync-actions"><button class="button" id="sync-connect">Conectar con Google</button><button class="button secondary" id="sync-retry" hidden>Reintentar</button><button class="text-button" id="sync-disconnect" hidden>Cerrar sesión</button></div>
+    </section>
+    <section class="backup-panel" aria-label="Copia de seguridad del progreso">
+      <div><strong>Una copia extra, si la necesitas.</strong><p>Puedes guardar y recuperar un archivo de respaldo en cualquier momento.</p></div>
+      <div class="backup-actions"><button class="button secondary" id="export-progress">↓ Guardar copia</button><button class="button secondary" id="import-progress">↑ Recuperar copia</button><input type="file" id="progress-file" accept="application/json,.json" hidden></div>
+    </section>
+    <section class="migration-panel" id="migration-panel" hidden><div><strong>Tu ruta se muda a GitHub.</strong><p>Continúa en la nueva web llevando las paradas marcadas en este navegador.</p></div><button class="button" id="migrate-progress">Continuar en GitHub ↗</button></section>
+    <section class="route-section" aria-labelledby="route-title">
+      <div class="route-heading"><div><div class="eyebrow">EL RECORRIDO</div><h2 id="route-title">Tu lista de paradas <span id="list-count">20</span></h2></div><div class="route-tools"><button class="text-button" id="undo-last" disabled>↶ Deshacer última</button><button class="icon-button" id="reset" aria-label="Reiniciar el progreso" title="Reiniciar el progreso">↻</button></div></div>
+      <div class="filterbar"><div class="filters" role="group" aria-label="Filtrar paradas"><button class="filter active" data-filter="all" aria-pressed="true">Todas <span id="all-count">20</span></button><button class="filter" data-filter="pending" aria-pressed="false">Pendientes <span id="pending-count">20</span></button><button class="filter" data-filter="visited" aria-pressed="false">Visitadas <span id="done-count">0</span></button></div><label class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="search" type="search" placeholder="Buscar nº, set, misión o coordenadas" aria-label="Buscar número de parada, set, misión o coordenadas" autocomplete="off"></label></div>
+      <p class="list-hint">Un toque para copiar y tachar. 7 sets: seis de 3 misiones y uno de 2.</p>
+      <div id="route-list" tabindex="-1"></div>
+      <noscript><p class="empty-state">Activa JavaScript para copiar coordenadas y guardar tu progreso.</p></noscript>
+    </section>
+    <footer><span class="footer-brand">parada.</span><p>Una ruta. A tu ritmo.<br><span>20 paradas · 7 sets · Progreso independiente</span></p><a href="https://pogoquest.com" target="_blank" rel="noopener noreferrer">Listado de PoGoQuest ↗</a></footer>
+  </main>
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden><span id="toast-message"></span><button id="toast-undo" hidden>Deshacer</button><button id="toast-close" aria-label="Cerrar aviso">×</button></div>
+  <dialog id="sync-logout-dialog" aria-labelledby="sync-logout-title"><form method="dialog"><span class="dialog-icon" aria-hidden="true">⇄</span><h2 id="sync-logout-title">Pausar en este dispositivo</h2><p>Se conservarán las visitas aquí y en tu cuenta. Para volver a sincronizar, conecta de nuevo la misma cuenta de Google.</p><p id="sync-pending-warning" class="import-note"></p><div class="dialog-actions"><button class="button secondary" value="cancel">Seguir conectado</button><button class="button" value="logout">Cerrar sesión</button></div></form></dialog>
+  <dialog id="reset-dialog" aria-labelledby="reset-title"><form method="dialog"><span class="dialog-icon" aria-hidden="true">↻</span><h2 id="reset-title">¿Volver al principio?</h2><p>Se quitarán las marcas de esta ruta en este navegador. La ruta de Eternatus conservará su progreso.</p><div class="dialog-actions"><button class="button secondary" value="cancel">Conservar progreso</button><button class="button" id="confirm-reset" value="reset">Reiniciar ruta</button></div></form></dialog>
+  <dialog id="import-dialog" aria-labelledby="import-title"><form method="dialog"><span class="dialog-icon" aria-hidden="true">↑</span><h2 id="import-title">Recuperar tu progreso</h2><p id="import-summary"></p><p class="import-note">Se conservarán también las visitas que ya tienes marcadas aquí.</p><div class="dialog-actions"><button class="button secondary" value="cancel">Cancelar</button><button class="button" value="import">Recuperar visitas</button></div></form></dialog>
+</body>
+</html>

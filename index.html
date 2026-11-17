@@ -7,19 +7,20 @@
   <meta name="description" content="Tu ruta de Londres. Copia coordenadas con un toque, guarda las paradas visitadas y consulta el cooldown estimado entre ellas.">
   <title>Parada · Tu ruta de Londres</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23172a22'/%3E%3Cpath d='M18 42V22h28M34 10l12 12-12 12' fill='none' stroke='%23d0f18c' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="style.css?v=sync-1">
+  <link rel="stylesheet" href="style.css?v=routes-2">
   <script src="route.js" defer></script>
-  <script src="app.js?v=sync-1" defer></script>
-  <script type="module" src="sync.mjs?v=sync-1"></script>
+  <script src="app.js?v=routes-2" defer></script>
+  <script type="module" src="sync.mjs?v=routes-2"></script>
 </head>
 <body>
   <a class="skip-link" href="#route-list">Saltar a las paradas</a>
   <header class="site-header">
     <a href="#" class="brand" aria-label="Parada, inicio"><span class="brand-icon" aria-hidden="true">↗</span>parada<span class="brand-dot">.</span></a>
-    <nav class="app-nav" aria-label="Módulos de PokeHUB"><a href="index.html" aria-current="page">Mi ruta</a><a href="pokedex.html">Pokédex <span aria-hidden="true">↗</span></a></nav>
+    <nav class="app-nav" aria-label="Módulos de PokeHUB"><a href="index.html" aria-current="page">Mis rutas</a><a href="pokedex.html">Pokédex <span aria-hidden="true">↗</span></a></nav>
     <span class="location"><span aria-hidden="true">◎</span> Londres, UK</span>
   </header>
   <main class="page">
+    <nav class="route-switcher" aria-label="Elegir ruta"><a href="index.html" aria-current="page"><span>Caramelos de Eternatus</span><small>173 paradas</small></a><a href="polvos.html"><span>Polvos Estelares</span><small>20 paradas</small></a></nav>
     <div class="page-heading"><div><div class="eyebrow">INVESTIGACIONES DE CAMPO</div><h1>Londres, parada a parada.</h1><p>Copia las coordenadas. Sigue tu ruta. Lleva la cuenta.</p></div><span class="date-tag">17 NOV 2026</span></div>
     <div class="overview">
       <section class="next-panel" aria-label="Siguiente parada" id="next-panel"></section>
