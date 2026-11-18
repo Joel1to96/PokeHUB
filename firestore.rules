@@ -8,11 +8,13 @@ service cloud.firestore {
       function owner() {
         return request.auth != null && request.auth.uid == userId
           && request.auth.token.firebase.sign_in_provider == 'google.com'
-          && routeId in ['londres-eternatus-2026-11-17-v1', 'londres-polvos-2026-11-17-v1'];
+          && routeId in ['londres-eternatus-2026-11-17-v1', 'londres-eternatus-2026-11-18-v1', 'londres-polvos-2026-11-17-v1'];
       }
       function validStop() {
         return (routeId == 'londres-eternatus-2026-11-17-v1'
             && stopId.matches('^([1-9]|[1-9][0-9]|1[0-6][0-9]|17[0-3])$'))
+          || (routeId == 'londres-eternatus-2026-11-18-v1'
+            && stopId.matches('^([1-9]|[1-9][0-9]|100)$'))
           || (routeId == 'londres-polvos-2026-11-17-v1'
             && stopId.matches('^([1-9]|1[0-9]|20)$'));
       }

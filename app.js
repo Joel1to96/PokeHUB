@@ -2,6 +2,15 @@
   'use strict';
   const route = window.ROUTE;
   const stops = route.stops;
+  function showRouteValidity() {
+    const label = document.getElementById('route-validity');
+    if (!label || !route.expiresAt) return;
+    const expired = Date.now() >= Date.parse(route.expiresAt);
+    label.textContent = expired ? 'Ruta caducada · las misiones cambiaron a medianoche' : '18 de noviembre · cambia a medianoche de Londres';
+    label.parentElement.classList.toggle('expired', expired);
+  }
+  showRouteValidity();
+  if (route.expiresAt) setInterval(showRouteValidity, 60000);
   const groupCount = new Set(stops.map(stop => stop.group)).size;
   const groupLabel = route.groupLabel || 'GRUPO';
   const kitLabel = route.kitLabel || 'Kit';

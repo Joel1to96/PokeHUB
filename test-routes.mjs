@@ -8,6 +8,42 @@ function route(file) {
   return JSON.parse(JSON.stringify(context.window.ROUTE));
 }
 const dust = route('route-polvos.js'), eternatus = route('route.js');
+const today = route('route-eternatus-2026-11-18.js');
+test('the new day keeps every reported stop once and does not reuse old progress', () => {
+  const source = JSON.parse(readFileSync(new URL('eternatus-2026-11-18-fuente.json', import.meta.url), 'utf8'));
+  assert.equal(today.id, 'londres-eternatus-2026-11-18-v1');
+  assert.notEqual(today.id, eternatus.id);
+  assert.notEqual(today.id, dust.id);
+  assert.equal(today.stops.length, 100);
+  assert.equal(new Set(today.stops.map(s => s.id)).size, 100);
+  assert.deepEqual([...today.stops].sort((a,b) => a.id-b.id).map(s => s.coords), source.coordenadas);
+  assert.deepEqual(today.stops.map(s => s.sequence), Array.from({length:100},(_,i)=>i+1));
+  assert.equal(new Set(today.stops.map(s => s.group)).size, 34);
+  assert.equal(today.stops.filter(s => s.group===34).length, 1);
+  assert.equal(today.expiresAt, '2026-11-19T00:00:00Z');
+  const active = readFileSync(new URL('index.html',import.meta.url),'utf8');
+  const archive = readFileSync(new URL('eternatus-2026-11-17.html',import.meta.url),'utf8');
+  assert.ok(active.includes('src="route-eternatus-2026-11-18.js"'));
+  assert.ok(archive.includes('src="route.js"'));
+});
+test('new route starts nearest the supplied position and all waits cover their incoming distance', () => {
+  assert.equal(today.origin.coords, '51.529585,-0.122008');
+  const distance = (a,b) => {
+    const [lat1,lon1] = a.split(',').map(Number), [lat2,lon2] = b.split(',').map(Number), r=Math.PI/180;
+    return 6371000*Math.acos(Math.min(1, Math.sin(lat1*r)*Math.sin(lat2*r)+Math.cos(lat1*r)*Math.cos(lat2*r)*Math.cos((lon2-lon1)*r)));
+  };
+  assert.equal(today.stops[0].coords,'51.511067,-0.117139');
+  const firstDistance = distance(today.origin.coords,today.stops[0].coords);
+  assert.ok(today.stops.every(s => distance(today.origin.coords,s.coords)>=firstDistance-0.01));
+  today.stops.forEach((s,i) => {
+    const measured=distance(i?today.stops[i-1].coords:today.origin.coords,s.coords);
+    assert.ok(Math.abs(s.distanceM-measured)<1);
+    assert.equal(s.waitSeconds,i===0?120:60);
+    assert.ok(measured<=(i===0?3000:2000));
+  });
+  assert.equal(today.totalWaitSeconds,6060);
+  assert.equal(today.stops.reduce((sum,s)=>sum+s.waitSeconds,0),today.totalWaitSeconds);
+});
 test('the existing route identity and stop coordinates stay unchanged', () => {
   assert.equal(eternatus.id, 'londres-eternatus-2026-11-17-v1');
   assert.equal(eternatus.stops.length, 173);

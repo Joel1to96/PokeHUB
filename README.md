@@ -22,7 +22,11 @@ Los ajustes de la Pokédex usan `pokehub:pokedex:v1`, independiente de la clave 
 
 ## Rutas de Londres
 
-Web estática con dos rutas independientes: **Eternatus**, 173 paradas en `index.html`, y **Polvos Estelares**, 20 paradas en `polvos.html`. El selector permite cambiar entre ellas. Copia coordenadas con un botón, marca la visita y muestra la espera estimada hasta la siguiente parada.
+Web estática con **Eternatus del 18/11**, 100 paradas en `index.html`, y **Polvos Estelares**, 20 paradas en `polvos.html`. La ruta de Eternatus del 17/11, con sus 173 paradas y el progreso original, sigue en `eternatus-2026-11-17.html`. Copia coordenadas con un botón, marca la visita y muestra la espera estimada hasta la siguiente parada.
+
+La ruta del 18/11 usa las 100 coordenadas recuperadas de TrainersGO para «Haz 1 lanzamiento excelente», con 25 caramelos de Eternatus anunciados por misión. La instantánea original está en `eternatus-2026-11-18-fuente.json`; las recompensas no están verificadas en el juego. Su clave es `londres-eternatus-2026-11-18-v1`, independiente del día 17. Los IDs representan el orden original de la fuente; `sequence` representa el orden visible.
+
+Sale de `51.529585,-0.122008`, empieza en la más cercana, `51.511067,-0.117139` (2.086 m, 2 min), y recorre 34 grupos. Se aplicó búsqueda con varios inicios y mejora 2-opt, minimizando primero las esperas y después la distancia, con primera parada fija. Todos los saltos posteriores quedan por debajo de 2 km: 1 min estimado cada uno, redondeando hacia arriba la tabla de PGSharp. Total: 101 min de esperas y 88,7 km de saltos; duración orientativa 2 h 15 min–3 h. No es un tiempo de marcha. Al llegar el 19/11 a las 00:00 UTC, la página muestra que la ruta ha caducado, conservando las marcas.
 
 La ruta de Polvos conserva las coordenadas, misiones y recompensas de PoGoQuest proporcionadas por el usuario: 14 recompensas de 1.000 y seis de 1.500, **23.000 Polvos Estelares anunciados** en total, sin bonus. Son Polvos Estelares, no experiencia. Cada parada muestra su misión. El listado no incluye fecha de generación y las recompensas no se han verificado en el juego.
 
@@ -50,7 +54,7 @@ En Settings → Pages, selecciona **Deploy from a branch**, rama **main**, carpe
 
 `firebase-config.mjs` contiene la configuración web pública, no una credencial administrativa. Authentication debe tener Google habilitado y `joel1to96.github.io` autorizado. El SDK oficial 13.3.0 se carga desde gstatic. No se activa Analytics.
 
-Publicar `firestore.rules` en la base `(default)` del proyecto indicado: acceso solo al UID autenticado por Google, rutas conocidas, paradas 1–173 para Eternatus y 1–20 para Polvos, y campos tipados. No abrir la base en modo de prueba. No hay permiso para eliminar documentos: «Deshacer» escribe una marca negativa versionada.
+Publicar `firestore.rules` en la base `(default)` del proyecto indicado: acceso solo al UID autenticado por Google, rutas conocidas, paradas 1–173 para Eternatus del 17/11, 1–100 para el 18/11 y 1–20 para Polvos, y campos tipados. No abrir la base en modo de prueba. No hay permiso para eliminar documentos: «Deshacer» escribe una marca negativa versionada.
 
 `sync-core.mjs` fusiona cambios por parada con un reloj lógico y un identificador aleatorio de dispositivo. Las decisiones concurrentes sobre una misma parada se resuelven de forma determinista; un cambio posterior que haya recibido el anterior lo reemplaza. `firebase-transport.mjs` aplica transacciones y escucha los cambios en directo. `sync.mjs` mantiene la cola local por cuenta, reconexión y estados de la interfaz. Cerrar sesión pausa los envíos y conserva los cambios para esa cuenta.
 
